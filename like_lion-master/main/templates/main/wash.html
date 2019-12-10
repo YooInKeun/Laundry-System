@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'main/css/wash.css' %}">
+<header>
+        <nav class="teal lighten-3 z-depth-0">
+            <div class="nav-wrapper container">
+                <a href="/" class="brand-logo">모두의 세탁소</a>
+            </div>
+        </nav>
+</header>
+{% endblock %}
+
+{% block title %}
+<title>세탁물 등록</title>
+{% endblock %}
+
+{% block main %}
+{% if context %}
+<script>
+    alert("회원 정보를 찾을 수 없습니다.");
+</script>
+{% endif %}
+<div class = "wash">
+   <form action = "{% url 'main:search' %}" method="POST">
+        <h4 class = "center">세탁물 등록</h4>
+        {% csrf_token %}
+        {{ customer }}
+        <div class="fieldcenter">
+        <button type="submit" class = "btn waves-effect waves-light">검색</button>
+        </div>
+    </form>
+<div style="text-align: center;">
+    <a href="{% url 'main:customer' %}?next={{ request.get_full_path|urlencode }}" class = "btn waves-effect waves-light" onclick = "window.open(this.href,'','width=550, height=730, scrollbars=yes'); return false">신규고객등록</a>
+</div>
+
+
+</div>
+{% endblock %}
+
+

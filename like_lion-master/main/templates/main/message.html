@@ -1,0 +1,105 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'main/css/message.css' %}">
+<header>
+    <nav class="teal lighten-3 z-depth-0">
+        <div class="nav-wrapper container">
+            <a href="/" class="brand-logo">모두의 세탁소</a>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+
+{% block title %}
+<title>메시지 전송</title>
+{% endblock %}
+
+{% block main %}
+<div class="message">
+    <!-- <form action="{% url 'main:message' %}" method="post">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label for="customer_name">고객명</label>
+            <input type="text" id="customer_name" />
+            <button type="submit" class="btn waves-effect waves-light">검색</button>
+            <div>{{form.customer_name}}</div>
+        </div>
+
+        <div class="field">
+            <label for="customer_number">고객번호</label>
+            <select id="number_select">
+                <option selected>선택하세요</option>
+                <option>예1</option>
+                <option>예2</option>
+            </select>
+            <div>{{form.customer_number}}</div>
+            <label for="customer_number">고객번호</label>
+            <input type="number" id="customer_number" />
+        </div>
+
+        <div class="field">
+            <label for="select">맡기신 물품</label>
+            <select id="select">
+                <option selected>선택하세요</option>
+                <option>예1</option>
+                <option>예2</option>
+            </select>
+            <div>{{form.subject}}</div>
+        </div>
+
+        <div class="field">
+            <label for="input_mesage" style="vertical-align: top">문자 내용 입력</label>
+            <textarea id="input_message" placeholder="문자를 입력하세요"
+                style=" vertical-align: top;width:200px; height:100px; font-size:13px;top: 0px;"></textarea>
+            <div>{{form.input_message}}</div>
+        </div>
+
+        <div class="fieldcenter">
+            <input type="submit" id="send" class="btn waves-effect waves-light">전송</input>
+            <button class="btn waves-effect waves-light">취소</button>
+        </div>
+    </form> -->
+
+
+    <form action="" method="POST">
+        {%  csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Submit" class="btn waves-effect waves-light">
+    </form>
+
+</div>
+{% endblock %}
+
+
+<script src="https://unpkg.com/vue"></script>
+<script>
+    // var sendMessage = new Vue({
+    //     el: '#send_message',
+    //     data: {
+
+    //     },
+    //     methods: {
+    //         send: function (event) {
+    //             // const accountSid = 'AC155820cd778430b90f0b858fb5635d9b';
+    //             // const authToken = '888b211e0bfd4cf40237999b30cfad8b';
+    //             // const client = require('twilio')(accountSid, authToken);
+
+    //             // client.messages
+    //             //     .create({
+    //             //         body: '문자 전송!',
+    //             //         from: '+12015819428',
+    //             //         to: '+821037045778'
+    //             //     })
+    //             //     .then(message => console.log(message.sid));
+    //             console.log("send message");
+    //         }
+    //     }
+    // })
+
+    // document.getElementById('send').onclick() = function () {
+    //     console.log('send message');
+    // }
+</script>

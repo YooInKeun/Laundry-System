@@ -1,0 +1,49 @@
+.message{
+    margin: 10%;
+    max-width: 100%;
+  }  
+
+.message label{
+    font-weight: 600;
+    font-size: 1.2em;
+    text-align: left;
+    display: inline-block;
+    width: 125px;
+    margin-right: 1em;
+    vertical-align: middle;
+}
+.field button{
+  margin-left: 0.5em;
+}
+.fieldcenter{
+    text-align: center;
+    margin-top: 50px;
+}
+.field input[type="text"] {
+    width: 125px;
+    display: inline-block;
+}
+.field textarea {
+  border:solid 1px #ccc;
+  overflow: auto;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.field select{
+  width: 125px;
+  height: 40px;
+  padding: .8em .5em;
+  border: 1px solid #999;
+  font-family: inherit;
+  background: url('../img/arrow.jpg') no-repeat 95% 50%;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+.field select::-ms-expand{
+  display: none;
+}

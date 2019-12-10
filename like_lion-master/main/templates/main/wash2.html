@@ -1,0 +1,89 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
+{% block script %}
+<script>
+    $(function() {
+        $("#datepicker1").datepicker({
+            dateFormat: "yy/mm/dd",
+        });
+    });        
+</script>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'main/css/wash.css' %}">
+<header>
+        <nav class="teal lighten-3 z-depth-0">
+            <div class="nav-wrapper container">
+                <a href="/" class="brand-logo">모두의 세탁소</a>
+            </div>
+        </nav>
+</header>
+{% endblock %}
+
+{% block title %}
+<title>세탁물 등록</title>
+{% endblock %}
+
+{% block main %}
+<div class = "wash">
+   <form action = "{% url 'main:wash' %}" method="POST">
+        <h4 class = "center">세탁물 등록</h4>
+        {% csrf_token %}
+        
+        {% for customers in customer%}
+        <div class = "field">
+        <label>이름</label>
+        <div class = search>{{customers.name}}</div><br>
+        <label>전화번호</label>
+        <div class = search>{{customers.phone_num}}</div>
+        {% endfor %}
+        </div>
+        
+        <div class = "field">
+            <label for = "category">종류</label>
+            <div class= "check">
+                <input type="checkbox" id="chk_wash" name ="chk_wask"/>
+                <label for = "chk_wash"><span></span> 세탁</label>
+                <input type="checkbox" id="chk_reform" name ="chk_reform"/>
+                <label for = "chk_reform"><span></span> 수선</label>
+            </div>
+        </div>
+
+        <div class = "field">
+            <label for = "clothes">의류 분류</label>
+            <select id="clothes_category">  
+                <option selected>아우터</option>
+                <option>상의</option>
+                <option>하의</option>
+                <option>원피스</option>
+                <option>신발</option>
+            </select>
+        </div>
+    
+        <div class = "field">
+            <label for = "service">요청 서비스</label>
+            <select id="service_category">
+                <option selected>드라이클리닝</option>
+                <option>물세탁</option>
+                <option>수선</option> 
+            </select>
+        </div>   
+        
+        <label>예상수령일</label>
+            {{ order.est_date }}
+        <br><br>
+        <label>세부 요청사항</label>
+            {{ order.requirements }}
+
+        <div class = "fieldcenter">
+                <button type="submit"  class = "btn waves-effect waves-light">등록</button>
+                <button type="cancel" class = "btn waves-effect waves-light" onclick = 'window.close()'>취소</button>
+        </div>  
+    </form>
+
+</div>
+{% endblock %}
+

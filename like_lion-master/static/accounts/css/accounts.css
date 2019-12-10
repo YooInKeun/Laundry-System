@@ -1,0 +1,14 @@
+.login, .signup {
+  margin-top: 10%;
+  max-width: 40%;
+}
+
+.login h2, .signup h2 {
+  font-weight: 200;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.login button, .signup button {
+  margin-top: 30px;
+}

@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'main/css/message.css' %}">
+<header>
+    <nav class="teal lighten-3 z-depth-0">
+        <div class="nav-wrapper container">
+            <a href="/" class="brand-logo">모두의 세탁소</a>
+            <ul class="right hide-on-med-and-down">
+                <a href="{% url 'main:saveCSV' %}?next={{ request.get_full_path|urlencode }}"  onclick = "">엑셀로 내보내기</a>
+            </ul>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+
+{% block title %}
+  <title>관리대장부</title>
+{% endblock %}
+{% block main %}
+<div class="list_type_h1 web_view mt3">
+    <table>
+        <thead>
+        <tr>
+            <td><B>연번</B></td>
+            <td><B>고객번호</B></td>
+            <td><B>고객이름</B></td>
+            <td><B>의류분류</B></td>
+            <td><B>요청서비스</B></td>
+            <td><B>세부 요청사항</B></td>
+            <td><B>맡긴 날짜</B></td>
+            <td><B>찾아간 날짜</B></td>
+            <td><B>가격</B></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for request in request_info %}
+        <tr>
+            <td>{{request.request_num}}</td>
+            <td>{{request.phone_num.phone_num}}</td>
+            <td>{{request.phone_num.name}}</td>
+            <td>{{request.clothe.clothe}}</td>
+            <td>{{request.service.service}}</td>
+            <td>{{request.requirements}}</td>
+            <td>{{request.rqst_date}}</td>
+            <td>{{request.rtrn_date}}</td>
+            <td>{{request.price}}</td>
+        </tr>
+        {% endfor %}
+{% endblock %}

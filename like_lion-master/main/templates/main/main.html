@@ -1,0 +1,148 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/banner.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/card.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/parallax.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>모두의 세탁소</title>
+{% endblock %}
+
+{% block main %}
+<header>
+  <nav class="teal lighten-3 z-depth-0">
+    <div class="nav-wrapper container">
+      <a href="/" class="brand-logo">모두의 세탁소</a>
+      <ul class="right hide-on-med-and-down">
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'main:wash' %}?next={{ request.get_full_path|urlencode }}" onclick = "window.open(this.href,'','width=600, height=800, scrollbars=yes'); return false">세탁물등록</a></li>
+          <li><a href="{% url 'main:manage' %}?next={{ request.get_full_path|urlencode }}">관리부이동</a></li>
+          <li><a href="{% url 'main:message' %}?next={{ request.get_full_path|urlencode }}" onclick = "window.open(this.href,'','width=500, height=500'); return false">메시지팝업창</a></li>
+          <li><a href="{% url 'accounts:logout' %}?next={{ request.get_full_path|urlencode }}">로그아웃</a></li>
+          {% else %}
+          
+          <li><a href="{% url 'accounts:login' %}">로그인</a></li>
+          <li><a href="{% url 'accounts:signup' %}?next={{ request.get_full_path|urlencode }}">회원가입</a></li>
+  
+          {% endif %}
+       </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="main-page">
+    <div class="banner-image">
+        <div class="container banner-text">
+            <h3 id="banner-title">나만의 세탁소, 나만의 공간</h3>
+            <p>공간에서 제공하는 클래스를 통해 일상을 충전하세요</p>
+        </div>
+    </div>
+</div>
+{% if user.is_authenticated %}
+<div class="container-fuild" id="app" style="padding: 0 80px;">
+  <br><br><br>
+  <div class="position-relative">
+      <div class="row d-flex align-items-center" style="height:120px;">
+          <h4 class="m-0">어서오세요 {{ request.user.nickname }}님! 오늘의 할일을 확인하세요.</h4>
+      </div>
+  </div>
+</div>
+
+<div class="row" style="border:1px solid rgb(82, 82, 82);"></div> 
+<h2>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;할&emsp;&emsp;&emsp;일&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 다한&emsp; 일</h2>
+<br>
+<table class="col-md-6" id="star_table"> 
+  <tr class="text-center">
+    <th>OrderName</th>
+    <th>고객이름</th>
+    <th>옷 분류</th>
+    <th>서비스 분류</th>
+    <th>예상 완료 날짜</th>
+    <th>요청사항</th>
+    <th>완료</th>
+  </tr>
+
+  {% for request in requests %}
+    {% if '처리중' in request.status%}
+    <tr class="text-center">
+      <th>{{forloop.counter}}</th>
+      <th>
+        {{ request.request_num }}
+      </th>
+      <th>{{request.clothe.category}}</th>
+      <th>{{request.service.category}}</th>
+      <th>{{request.status}}</th>
+      <th>{{request.requiremnets}}</th>
+      <th> 
+        <form action="{% url 'main:process' request.request_num %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="완료">
+        </form>
+      </th>
+    </tr>
+    {% endif %}
+  {% endfor %}
+
+</table>
+<table class="col-md-6" id="star_table"> 
+  <tr class="text-center">
+    <th>OrderName</th>
+    <th>고객이름</th>
+    <th>옷 분류</th>
+    <th>서비스 분류</th>
+    <th>완료 날짜</th>
+    <th>요청사항</th>
+    <th>수거상태</th>
+  </tr>
+
+  {% for request in requests %}
+  {% if '처리 완료' in request.status%}
+  <tr class="text-center">
+    <th>{{forloop.counter}}</th>
+    <th>
+      {{ request.request_num }}
+    </th>
+    <th>{{request.clothe.category}}</th>
+    <th>{{request.service.category}}</th>
+    <th>{{request.status}}</th>
+    <th>{{request.requiremnets}}</th>
+    <th> 
+      <form action="{% url 'main:end_process' request.request_num %}" method="post">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-primary" value="수거">
+      </form>
+    </th>
+  </tr>
+  {% endif %}
+{% endfor %}
+</table>
+{% else %}
+<div class="mt-3"><a href="{% url 'accounts:login' %}">로그인 하러 가기</a></div>
+<div class="mt-3"><a href="{% url 'accounts:signup' %}">회원가입 하러 가기</a></div>
+{% endif%}
+{% endblock %}
+{% block footer %}
+    <hr />ㅇ
+    <div class="container grey-text text-darken-3">
+      <div class="row">
+        <div class="col s10 l6">
+          <h5>세탁소</h5>
+          <p>세탁소 매장과 사용자들간의 편리한 인터페이스를 제공하고 세탁소 공간, 스페이스(Space)를 제공하는 서비스 '공간'입니다. </p>
+        </div>
+        <div class="col s12 l5 offset-l1">
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $('.modal').modal();
+        $('.parallax').parallax();
+    });
+</script>
+{% endblock %}

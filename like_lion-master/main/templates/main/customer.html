@@ -1,0 +1,64 @@
+{% extends 'main/wash.html' %}
+{% load staticfiles %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'main/css/wash.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>신규 고객 등록</title>
+{% endblock %}
+
+{% block main %}
+<header>
+    <nav class="teal lighten-3 z-depth-0">
+        <div class="nav-wrapper container">
+            <a href="/" class="brand-logo">모두의 세탁소</a>
+            
+        </div>
+    </nav>
+</header>
+<div class = "customer">
+    <form action = "{% url 'main:customer' %}" method="POST">
+        {% csrf_token %}
+        <h4 class = "center">신규 고객 등록</h4>
+        
+
+        <div class = "field">
+            <label for = "customer_name">고객명</label>
+            <div class = "text">{{form.name}}</div>
+        </div>
+
+        <div class = "field">
+            <label for = "phone_number">전화번호</label>
+            <div class = "text">{{form.phone_num}}</div>
+        </div>
+
+        <div class = "field">
+            <label for = "address">주소</label>
+            <div class = "text">{{form.address}}</div>
+        </div>
+
+        <div class = "field">
+            <label for = "category">문자 수신여부</label>
+            <div class= "check">
+                <input type="checkbox" id="check1" name ="check1" />
+                <label for = "check1"><span></span> 수신</label>
+                <input type="checkbox" id="check2" name ="check2"/>
+                <label for = "check2"><span></span> 비수신</label>
+            </div>
+            <div class = "text">{{form.get_message}}</div>
+        </div>
+    
+        <div class = "fieldcenter">
+           <button type="submit"  class = "btn waves-effect waves-light">등록</button>
+           <button class = "btn waves-effect waves-light" onclick = 'window.close()'>취소 </button>
+        </div>       
+
+    </form>
+</div>
+{% endblock %}
