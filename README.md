@@ -1,2 +1,4 @@
-# Wash_System
-Wash_System
+# Laundry-System
+
+Laundry System with Django
+=
