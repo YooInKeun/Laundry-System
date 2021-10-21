@@ -2,7 +2,7 @@ asn1crypto==0.24.0
 astroid==2.2.5
 awscli==1.16.253
 awsebcli==3.16.0
-Babel==2.7.0
+Babel==2.9.1
 beautifulsoup4==4.8.0
 botocore==1.13.29
 bs4==0.0.1
